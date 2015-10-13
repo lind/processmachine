@@ -1,0 +1,12 @@
+{"namespace": "org.nextstate.process.command",
+  "type": "record",
+  "name": "CreateProcessCommand",
+  "doc": "Create command for process",
+  "fields": [
+    {"name": "id", "type": "string", "doc": "ID as UUID"},
+    {"name": "type", "type": "string"},
+    {"name": "description", "type": ["null", "string"]},
+    {"name": "activity", "type": "string", "doc": "The first activity in the process"},
+    {"name": "activityType", "type": "string", "doc": "The type of the first activity in the process"}
+  ]
+}

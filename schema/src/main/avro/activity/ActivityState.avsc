@@ -1,0 +1,7 @@
+{
+  "name": "ActivityState",
+  "namespace": "org.nextstate.process.activity",
+  "type": "enum",
+  "symbols": ["CREATED", "IN_PROGRESS", "COMPLETED"
+  ]
+}

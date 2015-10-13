@@ -1,0 +1,76 @@
+apply plugin: "groovy"
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // mandatory dependencies for using Spock
+    compile "org.codehaus.groovy:groovy-all:2.4.1"
+    testCompile "org.spockframework:spock-core:1.0-groovy-2.4"
+
+    // optional dependencies for using Spock
+    testRuntime "cglib:cglib-nodep:3.1"          // allows mocking of classes (in addition to interfaces)
+    testRuntime "org.objenesis:objenesis:2.1"    // allows mocking of classes without default constructor (together with CGLIB)
+
+    // dependencies used by examples in this project
+    testRuntime "com.h2database:h2:1.4.182"
+}
+
+
+allprojects {
+
+    apply plugin: "java"
+    apply plugin: "groovy"
+    apply plugin: 'build-dashboard'
+    apply plugin: 'idea'
+
+    dependencies {
+
+        compile "org.codehaus.groovy:groovy-all:2.4.1"
+        compile 'org.slf4j:slf4j-simple:1.7.12'
+        testCompile "org.spockframework:spock-core:1.0-groovy-2.4"
+    }
+
+    repositories {
+        mavenCentral()
+    }
+}
+
+
+/*
+allprojects {
+    task hello << {task -> println "I'm $task.project.name" }
+}
+subprojects {
+    hello << {task -> println "- I depend on $task.project.parent.name"}
+}
+
+subprojects {
+    apply plugin: 'java'
+
+    repositories {
+       mavenCentral()
+    }
+
+    dependencies {
+        testCompile 'junit:junit:4.12'
+    }
+
+    version = '1.0'
+
+    jar {
+        manifest.attributes provider: 'gradle'
+    }
+}
+
+task helloo {
+    doLast {
+        println 'Hello world!'
+    }
+}
+task count << {
+    4.times { print "$it " }
+}
+
+*/

@@ -1,0 +1,9 @@
+{"namespace": "org.nextstate.process.command",
+  "type": "record",
+  "name": "LockProcessCommand",
+  "doc": "Create command for process",
+  "fields": [
+    {"name": "id", "type": "string", "doc": "ID as UUID"},
+    {"name": "ident", "type": "string"}
+  ]
+}

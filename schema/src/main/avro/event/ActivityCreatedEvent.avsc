@@ -1,0 +1,12 @@
+{"namespace": "org.nextstate.process.event",
+  "type": "record",
+  "name": "ActivityCreatedEvent",
+  "doc": "Event for Activity created",
+  "fields": [
+    {"name": "eventSourceIdentifier", "type": "string", "doc": "ID as UUID"},
+    {"name": "eventSourceTypeName", "type": "string", "default": "org.nextstate.process.domain.Process"},
+    {"name": "sequenceNumber", "type": ["int", "null"]},
+    {"name": "activity", "type": "string", "doc": "The type of the first activity for the process"},
+    {"name": "activityType", "type": "string", "doc": "The type of the activity."}
+  ]
+}
