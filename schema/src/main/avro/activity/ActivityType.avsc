@@ -1,6 +1,7 @@
 {
-  "name": "ActivityType",
+  "name": "TaskType",
   "namespace": "org.nextstate.process.activity",
   "type": "enum",
+  "doc": "",
   "symbols": ["MANUAL", "AUTOMATIC"]
 }

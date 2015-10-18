@@ -7,7 +7,7 @@ repositories {
 dependencies {
     // mandatory dependencies for using Spock
     compile "org.codehaus.groovy:groovy-all:2.4.1"
-    testCompile "org.spockframework:spock-core:1.0-groovy-2.4"
+//    testCompile "org.spockframework:spock-core:1.0-groovy-2.4"
 
     // optional dependencies for using Spock
     testRuntime "cglib:cglib-nodep:3.1"          // allows mocking of classes (in addition to interfaces)
@@ -25,6 +25,9 @@ allprojects {
     apply plugin: 'build-dashboard'
     apply plugin: 'idea'
 
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+
     dependencies {
 
         compile "org.codehaus.groovy:groovy-all:2.4.1"
@@ -37,40 +40,6 @@ allprojects {
     }
 }
 
-
-/*
-allprojects {
-    task hello << {task -> println "I'm $task.project.name" }
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.7'
 }
-subprojects {
-    hello << {task -> println "- I depend on $task.project.parent.name"}
-}
-
-subprojects {
-    apply plugin: 'java'
-
-    repositories {
-       mavenCentral()
-    }
-
-    dependencies {
-        testCompile 'junit:junit:4.12'
-    }
-
-    version = '1.0'
-
-    jar {
-        manifest.attributes provider: 'gradle'
-    }
-}
-
-task helloo {
-    doLast {
-        println 'Hello world!'
-    }
-}
-task count << {
-    4.times { print "$it " }
-}
-
-*/

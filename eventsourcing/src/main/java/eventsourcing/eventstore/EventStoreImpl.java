@@ -4,14 +4,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Stream;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import eventsourcing.event.DomainEvent;
 import eventsourcing.event.Event;
 import eventsourcing.event.EventSource;
 import eventsourcing.event.EventSourceIdentifier;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @SuppressWarnings({ "checkstyle:indentation" })
 public class EventStoreImpl implements EventStore {
@@ -71,10 +70,4 @@ public class EventStoreImpl implements EventStore {
         eventStoreRepository.storeEventsAndUpdateAggregate(key, eventsource.getClass().getCanonicalName(),
                 new Date(), eventsToSave);
     }
-
-    @Override
-    public void storeEventStream(Stream<DomainEvent> stream) {
-        eventStoreRepository.storeEventStreamAndUpdateAggregates(stream);
-    }
-
 }

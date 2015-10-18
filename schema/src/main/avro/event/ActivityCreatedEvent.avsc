@@ -6,7 +6,8 @@
     {"name": "eventSourceIdentifier", "type": "string", "doc": "ID as UUID"},
     {"name": "eventSourceTypeName", "type": "string", "default": "org.nextstate.process.domain.Process"},
     {"name": "sequenceNumber", "type": ["int", "null"]},
-    {"name": "activity", "type": "string", "doc": "The type of the first activity for the process"},
-    {"name": "activityType", "type": "string", "doc": "The type of the activity."}
+    {"name": "activity", "type": "org.nextstate.process.activity.Activity", "doc": "The activity."},
+    {"name": "activityType", "type": "string", "doc": "Type of the activity."},
+    {"name": "taskType", "type": "string", "doc": "Task type of the activity."}
   ]
 }

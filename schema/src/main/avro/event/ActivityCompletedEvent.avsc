@@ -1,0 +1,13 @@
+{"namespace": "org.nextstate.process.event",
+  "type": "record",
+  "name": "ActivityCompletedEvent",
+  "doc": "Event when activity is completed",
+  "fields": [
+    {"name": "eventSourceIdentifier", "type": "string", "doc": "ID as UUID"},
+    {"name": "eventSourceTypeName", "type": "string", "default": "org.nextstate.process.domain.Process"},
+    {"name": "sequenceNumber", "type": ["int", "null"]},
+    {"name": "identifier", "type": "string", "doc": "Identifier of the one freeing the process"},
+    {"name": "result", "type": "string", "doc": "The result of the activity"},
+    {"name": "processState", "type": ["string", "null"], "doc": "The resulting state of the process"}
+  ]
+}

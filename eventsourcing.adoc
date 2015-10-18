@@ -1,0 +1,41 @@
+= Eventsourcing
+:hardbreaks:
+
+:toc:
+
+== Basic
+
+TIP: See the references at the bottom
+
+
+.Hva blir dette?
+
+//^
+
+[source,java]
+----
+class MyClazz
+----
+
+[NOTE]
+====
+This is an example of an admonition block.
+====
+
+->
+--
+text -- text
+
+.A list
+* aaa
+* bbb
+** ccc
+
+//^
+----
+test();
+----
+
+. aaa
+. bbb
+

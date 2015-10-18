@@ -4,9 +4,7 @@ package eventsourcing.eventstore;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Optional;
-import java.util.stream.Stream;
 
-import eventsourcing.event.DomainEvent;
 import eventsourcing.event.EventSource;
 import eventsourcing.event.EventSourceIdentifier;
 
@@ -15,8 +13,6 @@ public interface EventStore {
     <T extends EventSource> Optional<T> loadEventSource(Class<T> type, EventSourceIdentifier id);
 
     <T extends EventSource> void save(T eventsource);
-
-    void storeEventStream(Stream<DomainEvent> stream);
 
     /**
      * Instantiates a event source with given identifier.

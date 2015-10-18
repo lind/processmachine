@@ -1,11 +1,11 @@
 {"namespace": "org.nextstate.process.event",
   "type": "record",
-  "name": "ProcessFreeEvent",
-  "doc": "Event for free Process",
+  "name": "ProcessTakenEvent",
+  "doc": "Event for locked Process",
   "fields": [
     {"name": "eventSourceIdentifier", "type": "string", "doc": "ID as UUID"},
     {"name": "eventSourceTypeName", "type": "string", "default": "org.nextstate.process.domain.Process"},
     {"name": "sequenceNumber", "type": ["int", "null"]},
-    {"name": "freedBy", "type": "string", "doc": "Identifier of the one freeing the process"}
+    {"name": "lockedBy", "type": "string", "doc": "Identifier of the one locking the process"}
   ]
 }

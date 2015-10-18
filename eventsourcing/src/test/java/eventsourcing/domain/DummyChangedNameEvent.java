@@ -3,12 +3,12 @@ package eventsourcing.domain;
 import eventsourcing.event.DomainEvent;
 import eventsourcing.event.EventSourceIdentifier;
 
-public class DummyChangedNameEvent extends DomainEvent<DummyAggregateRoot> {
+public class DummyChangedNameEvent extends DomainEvent {
 
     private final String name;
 
     public DummyChangedNameEvent(EventSourceIdentifier id, String name) {
-        super(DummyAggregateRoot.class, id);
+        super(id);
         this.name = name;
     }
 

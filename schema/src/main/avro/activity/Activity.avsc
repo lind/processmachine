@@ -1,10 +1,11 @@
 {"namespace": "org.nextstate.process.activity",
   "type": "record",
   "name": "Activity",
-  "doc": "Activity including description of work",
+  "doc": "Activity including description of work.",
   "fields": [
     {"name": "id", "type": "string", "doc": "ID as UUID"},
-    {"name": "type", "type": "ActivityType"},
+    {"name": "activityType", "type": "string", "doc": "Namespace and type of the activity."},
+    {"name": "taskType", "type": "TaskType", "doc": "Task type; manual or automatic"},
     {"name": "description", "type": ["string", "null"]},
     {"name": "state", "type": "ActivityState"}
   ]

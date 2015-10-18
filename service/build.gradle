@@ -1,3 +1,54 @@
-dependencies {
+/*dependencies {
     compile project(':eventsourcing'), project(':schema')
+}*/
+
+
+buildscript {
+    ext {
+        springBootVersion = '1.2.6.RELEASE'
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+apply plugin: 'spring-boot'
+
+jar {
+    baseName = 'processmachine'
+    version =  '0.1.0'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile project(':eventsourcing'), project(':schema'), project(':statemachine')
+
+    compile("org.springframework.boot:spring-boot-starter-hateoas") {
+        exclude module: "logback-classic"
+    }
+/*    compile("org.springframework.boot:spring-boot-starter-web") {
+        exclude module: "logback-classic"
+    }
+*/
+    compile("org.springframework.boot:spring-boot-starter-log4j2") {
+        exclude module: "logback-classic"
+    }
+    compile("org.springframework.boot:spring-boot-starter-actuator") {
+        exclude module: "logback-classic"
+        exclude module: "slf4j"
+    }
+    // Needed for reading YAML style log4j2 property file
+    compile group:"com.fasterxml.jackson.core", name:"jackson-core", version:'2.4.2'
+    compile group:"com.fasterxml.jackson.core", name:"jackson-databind", version:'2.4.2'
+    compile group:"com.fasterxml.jackson.dataformat", name:"jackson-dataformat-yaml", version:'2.4.2'
+
+    compile('ch.qos.logback:logback-classic:1.1.3')
+
+//    testCompile("org.springframework.boot:spring-boot-starter-test")
 }

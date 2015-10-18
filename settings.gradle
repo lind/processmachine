@@ -1,1 +1,2 @@
-include "schema", "service", "eventsourcing"
+include "schema", "service", "eventsourcing", 'statemachine'
+

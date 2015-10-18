@@ -4,19 +4,13 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import eventsourcing.event.DomainEvent;
 import eventsourcing.event.EventSourceIdentifier;
 
 public class AvroInMemoryEventStoreRepository implements EventStoreRepository {
 
-
-    // map med aggregat id som key og liste som innholder navn på klasse (til DomainEvent - som kan lese avro) og avroen - som value.
-
     private final Map<String, List<AvroEvent>> avroEventStorage = new HashMap<>();
-
-    private final Map<String, List<DomainEvent>> eventStorage = new HashMap<>();
     private final Map<String, Aggregate> aggregateStorage = new HashMap<>();
 
     @Override
@@ -35,8 +29,8 @@ public class AvroInMemoryEventStoreRepository implements EventStoreRepository {
         if (avroEventStorage.containsKey(id)) {
             avroEventStorage.get(id).stream().forEach(e -> {
 
-                DomainEvent domainEvent = (DomainEvent) createDomainEvent(e.getClazz(), e.getId());
-                domainEvent.readAvroByteArray(e.getEventByteArray(), false);
+                DomainEvent domainEvent = (DomainEvent) createDomainEvent(e.getEventClazz(), e.getId());
+                domainEvent.readEventByteArray(e.getEventByteArray(), false);
                 domainEvents.add(domainEvent);
             });
         }
@@ -52,45 +46,17 @@ public class AvroInMemoryEventStoreRepository implements EventStoreRepository {
     @Override
     public void storeEventsAndUpdateAggregate(String id, String type, Date opprettetDato, List<DomainEvent> events) {
 
-
-// TODO
         List<AvroEvent> existingAvroEvents = avroEventStorage.getOrDefault(id, new ArrayList<>());
 
         events.stream().forEach(e -> {
-            AvroEvent avroEvent = new AvroEvent(e.getClass(), e.getEventSourceIdentifier(), e.getAvroByteArray(false));
+            AvroEvent avroEvent = new AvroEvent(e.getClass(), e.getEventSourceIdentifier(), e.getEventByteArray(false));
             existingAvroEvents.add(avroEvent);
         });
-
         avroEventStorage.put(id, existingAvroEvents);
-
-
-        // TODO old
-        List<DomainEvent> existingEvents = eventStorage.getOrDefault(id, new ArrayList<>());
-        existingEvents.addAll(events);
-        eventStorage.put(id, existingEvents);
 
         Aggregate aggregate = aggregateStorage.getOrDefault(id, new Aggregate(id, type, 0L));
         aggregate.incrementVersion(events.size());
         aggregateStorage.put(id, aggregate);
-    }
-
-    @Override
-    @SuppressWarnings({ "checkstyle:indentation" })
-    public void storeEventStreamAndUpdateAggregates(Stream<DomainEvent> stream) {
-
-        stream.forEach(e -> {
-            String id = e.getEventSourceIdentifier().asString();
-
-            List<DomainEvent> events = eventStorage.getOrDefault(id,
-                    new ArrayList<>());
-            events.add(e);
-            eventStorage.put(id, events);
-
-            Aggregate aggregate = aggregateStorage.getOrDefault(id, new Aggregate(id, e.getEventSourceType()
-                    .getCanonicalName(), 0L));
-            aggregate.incrementVersion(1);
-            aggregateStorage.put(id, aggregate);
-        });
     }
 
     /**
@@ -123,14 +89,9 @@ public class AvroInMemoryEventStoreRepository implements EventStoreRepository {
         return createdDomainEvent;
     }
 
-
-
     private static class Aggregate {
-
         private String identifier;
-
         private long version;
-
         private String type;
 
         public Aggregate(String identifier, String type, long version) {
@@ -154,22 +115,21 @@ public class AvroInMemoryEventStoreRepository implements EventStoreRepository {
         public void incrementVersion(long with) {
             version += with;
         }
-
     }
 
     private static class AvroEvent {
-        private Class clazz;
+        private Class eventClazz;
         private byte[] eventByteArray;
         private EventSourceIdentifier id;
 
         public AvroEvent(Class clazz, EventSourceIdentifier id, byte[] eventByteArray) {
-            this.clazz = clazz;
+            this.eventClazz = clazz;
             this.id = id;
             this.eventByteArray = eventByteArray;
         }
 
-        public Class getClazz() {
-            return clazz;
+        public Class getEventClazz() {
+            return eventClazz;
         }
 
         public byte[] getEventByteArray() {
@@ -180,5 +140,4 @@ public class AvroInMemoryEventStoreRepository implements EventStoreRepository {
             return id;
         }
     }
-
 }

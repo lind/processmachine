@@ -47,12 +47,12 @@ public class ReflectionUtilsTest {
         }
     }
 
-    class TestFornavnEndretEvent extends DomainEvent<SimpleAggregateRoot> {
+    class TestFornavnEndretEvent extends DomainEvent {
 
         private final String fornavn;
 
         public TestFornavnEndretEvent(EventSourceIdentifier id, String fornavn) {
-            super(SimpleAggregateRoot.class, id);
+            super(id);
             this.fornavn = fornavn;
         }
 

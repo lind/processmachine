@@ -2,7 +2,6 @@ package eventsourcing.eventstore;
 
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import eventsourcing.event.DomainEvent;
 
@@ -38,26 +37,6 @@ public class InMemoryEventStoreRepository implements EventStoreRepository {
         Aggregate aggregate = aggregateStorage.getOrDefault(id, new Aggregate(id, type, 0L));
         aggregate.incrementVersion(events.size());
         aggregateStorage.put(id, aggregate);
-    }
-
-    @Override
-    @SuppressWarnings({ "checkstyle:indentation" })
-    public void storeEventStreamAndUpdateAggregates(Stream<DomainEvent> stream) {
-
-        stream.forEach(e -> {
-            String id = e.getEventSourceIdentifier().asString();
-
-            List<DomainEvent> events = eventStorage.getOrDefault(id,
-                    new ArrayList<>());
-            events.add(e);
-            eventStorage.put(id, events);
-
-            Aggregate aggregate = aggregateStorage.getOrDefault(id, new Aggregate(id, e.getEventSourceType()
-                    .getCanonicalName(), 0L));
-            aggregate.incrementVersion(1);
-            aggregateStorage.put(id, aggregate);
-
-        });
     }
 
     private static class Aggregate {

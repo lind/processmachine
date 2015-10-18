@@ -22,8 +22,8 @@ public class ProcessCommandHandler {
 
     public void handle(CreateProcessCommand command) {
 
-        Process process = new Process(command.getId(),
-                command.getActivity(), command.getActivityType());
+        Process process = new Process(command.getId(), command.getProcessType(), command.getActivityType(),
+                command.getActivityType());
 
         eventStore.save(process);
         process.clearUnsavedEvents(); // TODO nedded?
@@ -31,8 +31,9 @@ public class ProcessCommandHandler {
 
     public void handle(LockProcessCommand command) {
 
-        Optional<Process> process = eventStore.loadEventSource(Process.class, new UUIDEventSourceIdentifier(UUID.fromString(
-                command.getId())));
+        Optional<Process> process = eventStore
+                .loadEventSource(Process.class, new UUIDEventSourceIdentifier(UUID.fromString(
+                        command.getId())));
         process.orElseThrow(() -> new MissingProcessException(command.getId()));
 
         Process theProcess = process.get();

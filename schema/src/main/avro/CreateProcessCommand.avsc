@@ -6,7 +6,8 @@
     {"name": "id", "type": "string", "doc": "ID as UUID"},
     {"name": "type", "type": "string"},
     {"name": "description", "type": ["null", "string"]},
-    {"name": "activity", "type": "string", "doc": "The first activity in the process"},
-    {"name": "activityType", "type": "string", "doc": "The type of the first activity in the process"}
+    {"name": "processType", "type": "string", "doc": "Type of the process"},
+    {"name": "activityType", "type": "string", "doc": "Type of the first activity in the process"},
+    {"name": "taskType", "type": "string", "doc": "Task type of the activity"}
   ]
 }

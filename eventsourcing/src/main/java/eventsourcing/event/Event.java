@@ -1,10 +1,8 @@
 package eventsourcing.event;
 
-public interface Event<T extends EventSource> {
+public interface Event {
 
     EventSourceIdentifier getEventSourceIdentifier();
-
-    Class<T> getEventSourceType();
 
     long getSequenceNumber();
 

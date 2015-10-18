@@ -7,7 +7,7 @@ import org.apache.avro.specific.SpecificDatumReader
 import org.apache.avro.specific.SpecificDatumWriter
 import org.nextstate.process.activity.Activity
 import org.nextstate.process.activity.ActivityState
-import org.nextstate.process.activity.ActivityType
+import org.nextstate.process.activity.TaskType
 import spock.lang.Specification
 
 class AvroTest extends Specification {
@@ -18,10 +18,12 @@ class AvroTest extends Specification {
                 .setId("id")
                 .setDescription("description")
                 .setState(ActivityState.CREATED)
-                .setType(ActivityType.AUTOMATIC).build()
+                .setActivityType("activityType")
+                .setTaskType(TaskType.AUTOMATIC).build()
         def activityJSON = "{\n" +
                 "  \"id\" : \"id\",\n" +
-                "  \"type\" : \"AUTOMATIC\",\n" +
+                "  \"activityType\" : \"activityType\",\n" +
+                "  \"taskType\" : \"AUTOMATIC\",\n" +
                 "  \"description\" : {\n" +
                 "    \"string\" : \"description\"\n" +
                 "  },\n" +
@@ -47,7 +49,8 @@ class AvroTest extends Specification {
                 .setId("id")
                 .setDescription("description")
                 .setState(ActivityState.CREATED)
-                .setType(ActivityType.AUTOMATIC).build()
+                .setActivityType("activityType")
+                .setTaskType(TaskType.AUTOMATIC).build()
         println "Activity:" + activity
 
         when:
